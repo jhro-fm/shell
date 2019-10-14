@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+systemctl stop firewalld.service && systemctl disable
+ yum -y reinstall gcc make zlib-devel pcre pcre-devel openssl-devel
+wget http://mirrors.tuna.tsinghua.edu.cn/apache//httpd/httpd-2.4.41.tar.gz
+wget http://archive.apache.org/dist/apr/apr-0.9.20.tar.gz
+wget http://archive.apache.org/dist/apr/apr-util-0.9.11.tar.gz
+tar xf apr-0.9.20.tar.gz
+tar xf apr-util-0.9.11.tar.gz
+tar xf httpd-2.4.41.tar.gz
+cd /tmp/apr-0.9.20 && ./configure --prefix=/apr-config && make && make install
+cd /tmp/apr-util-0.9.11 && ./configure --prefix=/apr-util --with-apr=/apr-config && make && make install
+cd /tmp/httpd-2.4.41 && ./configure --prefix=/httpd --with-apr-util=/apr-util --with-apr=/apr-config && make && make install
+
